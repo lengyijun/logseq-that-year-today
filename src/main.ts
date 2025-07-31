@@ -2,7 +2,7 @@ import "@logseq/libs";
 
 import { format, sub } from 'date-fns'
 import { logseq as PL } from "../package.json";
-import { PageEntity } from "@logseq/libs/dist/LSPlugin.user";
+import { PageEntity, BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 
 const pluginId = PL.id;
 
@@ -27,8 +27,15 @@ interface History {
 }
 
 const getPastYearsSameDay = async (formatType: string, length: number = 10) => {
+  let day = new Date();
+  let current_page: PageEntity | BlockEntity | null = await logseq.Editor.getCurrentPage();
+  if(current_page===null){
+    // day = new Date();
+  }else{
+    day = new Date(current_page?.originalName);
+  }
+  console.log(day);
   const uuids = [];
-  let day = new Date()
   let i = 0
   let page: PageEntity | null = await logseq.Editor.getPage(format(day, formatType))
 

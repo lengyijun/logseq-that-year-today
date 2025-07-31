@@ -19,3 +19,9 @@
 - ## Licence
 
   - [MIT](https://choosealicense.com/licenses/mit/)
+
+- build
+```
+pnpm install
+npm run build
+```
