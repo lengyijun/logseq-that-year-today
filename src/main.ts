@@ -84,31 +84,8 @@ const init = async () => {
         }
 
         uuids.map(i => logseq.Editor.openInRightSidebar(i))
-
-        const history: History = await fetch('https://history.muffinlabs.com/date').then(res => res.json())
-
-        if (!res?.uuid) return
-        await logseq.Editor.appendBlockInPage(res.uuid, `( **Note**: This page is not persistently stored and is for viewing purposes only )`)
-        await logseq.Editor.appendBlockInPage(res.uuid, `> ${history.url}`)
-        const events = await logseq.Editor.appendBlockInPage(res.uuid, `## Events`)
-        const deaths = await logseq.Editor.appendBlockInPage(res.uuid, `## Deaths`)
-        const births = await logseq.Editor.appendBlockInPage(res.uuid, `## Births`)
-
-        events?.uuid && await logseq.Editor.insertBatchBlock(events.uuid, history.data.Events.reverse().map(i => ({
-          content: i.html
-        })), { sibling: false })
-
-        deaths?.uuid && await logseq.Editor.insertBatchBlock(deaths.uuid, history.data.Events.reverse().map(i => ({
-          content: i.html
-        })), { sibling: false })
-
-        births?.uuid && await logseq.Editor.insertBatchBlock(births.uuid, history.data.Events.reverse().map(i => ({
-          content: i.html
-        })), { sibling: false })
-
-        logseq.Editor.exitEditingMode()
-        return
-      }
+        return;
+     }
 
       if (isShow) {
         isShow = false
